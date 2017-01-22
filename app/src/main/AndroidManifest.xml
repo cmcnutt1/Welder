@@ -10,6 +10,8 @@
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity android:name=".PlayerScreen">
             theme="@android:style/Theme.NoTitleBar"
+        </activity>
+        <activity android:name=".LandingScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

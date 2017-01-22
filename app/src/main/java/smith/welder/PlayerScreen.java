@@ -1,9 +1,7 @@
 package smith.welder;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
+import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -47,9 +45,6 @@ public class PlayerScreen extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //Remove title bar
-        //this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         setContentView(R.layout.activity_player_screen);
 
@@ -103,7 +98,7 @@ public class PlayerScreen extends AppCompatActivity implements
         Log.d("PlayerScreen", "Playing Track");
 
         try {
-            mPlayer.playUri(null, "spotify:user:spotify:playlist:37i9dQZEVXcPEf1HdkmU5s", 0, 0);
+            mPlayer.playUri(null, "spotify:user:biocoven:playlist:6gN0lPTuKx2pBaHNaLrYI3", 0, 0);
 
         }catch(Throwable e){
             Log.d("Player", "NOT PLAYING");}
@@ -124,6 +119,7 @@ public class PlayerScreen extends AppCompatActivity implements
 
                     }
                 });
+                togglePlay(false);
             }
         });
 
@@ -143,23 +139,25 @@ public class PlayerScreen extends AppCompatActivity implements
 
                     }
                 });
+                togglePlay(false);
             }
         });
 
+        ImageButton pauseButton = (ImageButton) findViewById(R.id.PauseButton);
+        pauseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onPause(mPlayer);
+            }
+        });
 
-
-
-        //String albumArtURL = trackData.currentTrack.albumCoverWebUrl.toString();
-
-        //System.out.println(albumArtURL);
-
-        // show The Image in a ImageView
-        //new DownloadImageTask((ImageView) findViewById(R.id.albumArt))
-        //        .execute(trackData.currentTrack.albumCoverWebUrl);
-
-
-
-
+        ImageButton playButton = (ImageButton) findViewById(R.id.PlayButton);
+        playButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onPlay();
+            }
+        });
     }
 
     @Override
@@ -199,6 +197,38 @@ public class PlayerScreen extends AppCompatActivity implements
 
     }
 
+    public void onPause(Player nPlayer) {
+        if (nPlayer != null) {
+            nPlayer.pause(new Player.OperationCallback() {
+                @Override
+                public void onSuccess() {
+                    Log.d("Player", "Song Paused");
+                    togglePlay(true);
+                }
+
+                @Override
+                public void onError(Error error) {
+                    Log.d("Player", "FAILED ON PAUSE");
+                }
+            });
+        }
+    }
+
+    public void onPlay(){
+        mPlayer.resume(new Player.OperationCallback() {
+            @Override
+            public void onSuccess() {
+                Log.d("Player","Resuming song");
+                togglePlay(false);
+            }
+
+            @Override
+            public void onError(Error error) {
+                Log.d("Player","FAILED ON PLAY");
+            }
+        });
+    }
+
 
 
     public void changeSongDisplay(){
@@ -210,5 +240,20 @@ public class PlayerScreen extends AppCompatActivity implements
         songText.setText(trackData.currentTrack.name);
         artistText = (TextView) findViewById(R.id.ArtistName);
         artistText.setText(trackData.currentTrack.artistName);
+    }
+
+    public void togglePlay(boolean playing){
+        ImageButton pause = (ImageButton)findViewById(R.id.PauseButton);
+        ImageButton play = (ImageButton)findViewById(R.id.PlayButton);
+
+
+        if(playing) {
+            pause.setVisibility(View.INVISIBLE);
+            play.setVisibility(View.VISIBLE);
+        }
+        else{
+            play.setVisibility(View.INVISIBLE);
+            pause.setVisibility(View.VISIBLE);
+        }
     }
 }
