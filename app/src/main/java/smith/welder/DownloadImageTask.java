@@ -20,6 +20,7 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         String urldisplay = urls[0];
         Bitmap mIcon11 = null;
         try {
+            //Open input stream of url image, then decode the input stream through BitmapFactory
             InputStream in = new java.net.URL(urldisplay).openStream();
             mIcon11 = BitmapFactory.decodeStream(in);
         } catch (Exception e) {
