@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "249799003793",
+    "firebase_url": "https://welder-9c2ed.firebaseio.com",
+    "project_id": "welder-9c2ed",
+    "storage_bucket": "welder-9c2ed.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:249799003793:android:bf89af32a70afbe9",
+        "android_client_info": {
+          "package_name": "smith.welder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "249799003793-dklrmd4lpsdofgttnflmai6o5omsq3v0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "smith.welder",
+            "certificate_hash": "9D2E5D4228490A53D5CDD1236BACE2CDEFA5B231"
+          }
+        },
+        {
+          "client_id": "249799003793-tfb8fv2g9fo0f8rrkptuqq4qrliomg79.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2jLPp3RQYU95fQGz9FMhaUcUJYJyPWtU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "249799003793-tfb8fv2g9fo0f8rrkptuqq4qrliomg79.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

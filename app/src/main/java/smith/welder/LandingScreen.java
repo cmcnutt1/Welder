@@ -11,11 +11,21 @@ import android.widget.Toast;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationResponse;
 
+import java.util.concurrent.Executor;
+
+import kaaes.spotify.webapi.android.SpotifyApi;
+import kaaes.spotify.webapi.android.SpotifyService;
+import kaaes.spotify.webapi.android.models.UserPrivate;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+
 import static com.spotify.sdk.android.authentication.LoginActivity.REQUEST_CODE;
 
 public class LandingScreen extends AppCompatActivity {
 
     private static String authToken;
+    private static SpotifyApi webAPI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,14 +54,23 @@ public class LandingScreen extends AppCompatActivity {
             switch (response.getType()) {
 
                 case TOKEN:
+                    String toke = response.getAccessToken();
                     //Toast.makeText(this, "Logged in!", Toast.LENGTH_SHORT).show();
                     setAuthToken(response.getAccessToken());
                     //Toast.makeText(this, getAuthToken(), Toast.LENGTH_LONG).show();
                     Log.d("Authentication","got access token");
 
-                    startActivity(new Intent(LandingScreen.this, PlayerScreen.class));
+                    String userID = "";
 
-                    break;
+                    webAPI = new SpotifyApi();
+
+                    webAPI.setAccessToken(toke);
+
+                    new UserLookup(userID,this).execute(webAPI);
+
+
+
+                    //Log.d("Username", "Is: " + id);
 
                 case ERROR:
                     Log.d("Authentication", "Could not authenticate");
@@ -67,4 +86,5 @@ public class LandingScreen extends AppCompatActivity {
     public void setAuthToken(String token){
         authToken = token;
     }
+
 }

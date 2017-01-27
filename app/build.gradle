@@ -19,10 +19,13 @@ android {
     }
 }
 
-repositories{
+repositories {
     flatDir {
         dirs 'libs'
     }
+    //For Spotify Web API Android wrapper
+    mavenCentral()
+    maven { url "https://jitpack.io" }
 }
 
 dependencies {
@@ -30,11 +33,26 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.1.0'
-    testCompile 'junit:junit:4.12'
 
-    compile 'com.spotify.sdk:spotify-android-auth:1.0.0@aar'
+    //Spotify Android SDK, Player
     compile 'com.spotify.sdk:spotify-player-24-noconnect-2.20b@aar'
 
+    compile 'com.android.support:appcompat-v7:25.1.0'
+
+    //Spotify Android SDK, Auth
+    compile 'com.spotify.sdk:spotify-android-auth:1.0.0@aar'
+
+    //Slide Panel
     compile 'com.sothree.slidinguppanel:library:3.3.1'
+
+    //Firebase
+    compile 'com.google.firebase:firebase-database:9.6.0'
+
+    //Spotify Android Web API wrapper
+    compile 'com.github.kaaes:spotify-web-api-android:0.4.1'
+
+    testCompile 'junit:junit:4.12'
 }
+
+
+apply plugin: 'com.google.gms.google-services'

@@ -22,7 +22,7 @@ public class AuthorizeUser {
                 REDIRECT_URI);
 
         //SCOPES
-        builder.setScopes(new String[]{"user-read-private", "streaming"});
+        builder.setScopes(new String[]{"user-read-private", "streaming","playlist-read-private"});
 
         AuthenticationRequest request = builder.build();
         AuthenticationClient.openLoginActivity(callingScreen, REQUEST_CODE, request);
