@@ -14,7 +14,7 @@
         android:text="Enter name of group to add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView2"
+        android:id="@+id/GroupAddText1"
         android:textSize="50sp"
         android:textAlignment="center"
         android:layout_alignParentTop="true"
@@ -27,8 +27,8 @@
         android:inputType="textPersonName"
         android:ems="10"
         android:layout_marginTop="36dp"
-        android:id="@+id/editText2"
-        android:layout_below="@+id/textView2"
+        android:id="@+id/GroupAddInput"
+        android:layout_below="@+id/GroupAddText1"
         android:layout_centerHorizontal="true"
         android:background="#ffffff"
         android:textColor="#000000"
@@ -40,8 +40,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="41dp"
-        android:id="@+id/button3"
-        android:layout_below="@+id/editText2"
+        android:id="@+id/GroupAddSubmit"
+        android:layout_below="@+id/GroupAddInput"
         android:layout_centerHorizontal="true" />
 
     <TextView
@@ -49,10 +49,60 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
-        android:id="@+id/textView3"
+        android:id="@+id/textView2"
         android:textAlignment="center"
         android:textSize="20sp"
-        android:layout_below="@+id/button3"
+        android:layout_below="@+id/GroupAddSubmit"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="34dp"
+        android:id="@+id/GroupAddErrorMessage"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textColor="@android:color/holo_red_light"
+        android:visibility="visible"
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="@string/createNewGroupMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="34dp"
+        android:id="@+id/AddNewGroupMessage"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textColor="@android:color/background_light"
+        android:visibility="invisible"
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="Cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/GroupAddSubmit"
+        android:layout_toStartOf="@+id/GroupAddSubmit"
+        android:layout_marginBottom="71dp"
+        android:id="@+id/CancelGroupAdd"
+        android:background="@android:color/holo_red_light"
+        android:visibility="invisible"/>
+
+    <Button
+        android:text="Confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ConfirmGroupAdd"
+        android:layout_alignBaseline="@+id/CancelGroupAdd"
+        android:layout_alignBottom="@+id/CancelGroupAdd"
+        android:layout_toRightOf="@+id/GroupAddSubmit"
+        android:layout_toEndOf="@+id/GroupAddSubmit"
+        android:background="@android:color/holo_green_dark"
+        android:visibility="invisible"/>
 </RelativeLayout>

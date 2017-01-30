@@ -58,13 +58,15 @@ public class PlayerScreen extends AppCompatActivity{
                     //Assign mPlayer to SpotifyPlayer result
                     mPlayer = spotifyPlayer;
 
+                    final String playUri = getIntent().getStringExtra("uri");
+
                     //Add Connection State because if beginPlayback(mPlayer.playURI function specifically) called too soon
                     //after player initialization, error will be thrown. Now it will begin playback when onLoggedIn is returned.
                     mPlayer.addConnectionStateCallback(new ConnectionStateCallback() {
                         @Override
                         public void onLoggedIn() {
                             setupPlayerUI();
-                            beginPlayback();
+                            beginPlayback(playUri);
                         }
 
                         @Override
@@ -263,7 +265,7 @@ public class PlayerScreen extends AppCompatActivity{
     }
 
     //Start playing
-    public void beginPlayback(){
-        mPlayer.playUri(null,"spotify:user:biocoven:playlist:6gN0lPTuKx2pBaHNaLrYI3",0,0);
+    public void beginPlayback(String uri){
+        mPlayer.playUri(null,uri,0,0);
     }
 }

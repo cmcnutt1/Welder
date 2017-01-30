@@ -17,7 +17,6 @@ import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationResponse;
 
 import java.util.Map;
-import java.util.concurrent.Executor;
 
 import kaaes.spotify.webapi.android.SpotifyApi;
 import kaaes.spotify.webapi.android.SpotifyService;
@@ -35,6 +34,7 @@ public class LandingScreen extends AppCompatActivity {
     private static String authToken;
     private static SpotifyApi webAPI;
 
+    private static String globUserID;
     private String discoverId;
     private boolean newUser;
 
@@ -89,6 +89,7 @@ public class LandingScreen extends AppCompatActivity {
                         public void success(UserPrivate userPrivate, Response response) {
                             String userID = userPrivate.id;
                             Log.d("UserID",userID);
+                            globUserID = userID;
 
                             boolean isNewUser = isUserRegistered(userID);
 
@@ -123,6 +124,10 @@ public class LandingScreen extends AppCompatActivity {
 
     public void setAuthToken(String token){
         authToken = token;
+    }
+
+    public static String getUserID(){
+        return globUserID;
     }
 
     public boolean isUserRegistered(String username){
@@ -160,6 +165,7 @@ public class LandingScreen extends AppCompatActivity {
                     Log.d("Firebase stuff",dataSnapshot.toString());
                 }
                 else{
+                    Toast.makeText(getApplicationContext(),"Welcome new user. Creating database entry for " + userID,Toast.LENGTH_LONG);
                     writeNewUserToDatabase(dbRef,userID);
                 }
 
