@@ -96,11 +96,10 @@ public class GroupsAdd extends AppCompatActivity {
                     //User is in database
                     Log.d("Firebase", "Group " + groupID + " already in database");
                     Log.d("Firebase stuff", dataSnapshot.toString());
-                    isUserInGroup();
+                    isUserInGroup(groupID);
 
                 }
                 else {
-                    Toast.makeText(getApplicationContext(), "Nobody has joined this group yet. Creating database entry for " + groupID, Toast.LENGTH_LONG);
                     showNewGroupMessage(groupID);
                 }
             }
@@ -139,16 +138,23 @@ public class GroupsAdd extends AppCompatActivity {
             }
         });
 
-        Toast.makeText(getApplicationContext(), "Added to new group " + groupName, Toast.LENGTH_LONG ).show();
     }
 
     public void writeUserToExistingGroup(DatabaseReference dbRef){
         Log.d("Group Add","DBREF: " + dbRef.toString());
 
+        dbRef.push().setValue(userID, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                Log.d ("Firebase",("User " + userID + " has been added to existing group"));
+                textEntry.setText("");
+            }
+        });
+
         //dbRef.child("subscribers").
     }
 
-    public void isUserInGroup(){
+    public void isUserInGroup(final String groupName){
 
         groupRef.child("subscribers").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -169,7 +175,10 @@ public class GroupsAdd extends AppCompatActivity {
                     }
                 }
 
-                Log.d("why","won't this work");
+                if(!inGroup){
+                    writeUserToExistingGroup(dataSnapshot.getRef());
+                    toastResults(groupName);
+                }
             }
 
             @Override
@@ -179,8 +188,9 @@ public class GroupsAdd extends AppCompatActivity {
         });
     }
 
-    public void showNewGroupMessage(final String groupname){
+    public void showNewGroupMessage(String groupname){
 
+        final String groupID = groupname;
 
         createMessage.setVisibility(View.VISIBLE);
         confirm.setVisibility(View.VISIBLE);
@@ -189,8 +199,9 @@ public class GroupsAdd extends AppCompatActivity {
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                writeNewGroupToDatabase(groupname);
+                writeNewGroupToDatabase(groupID);
                 hideConfirmation();
+                toastResults(groupID);
             }
         });
 
@@ -215,5 +226,10 @@ public class GroupsAdd extends AppCompatActivity {
         createMessage = (TextView) findViewById(R.id.AddNewGroupMessage);
         confirm = (Button) findViewById(R.id.ConfirmGroupAdd);
         cancel = (Button) findViewById(R.id.CancelGroupAdd);
+    }
+
+    public void toastResults(String groupName){
+        Toast.makeText(getApplicationContext(), "Success! You've been added to group " + groupName, Toast.LENGTH_LONG ).show();
+
     }
 }
